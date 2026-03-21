@@ -1,7 +1,9 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '@/store/useStore'
+import { supabaseService } from '@/lib/supabaseService'
 import { Trophy, Medal, Target, ChevronUp } from 'lucide-react'
 
 interface LeaderboardUser {
@@ -12,29 +14,57 @@ interface LeaderboardUser {
   trend?: 'up' | 'neutral' | 'down'
 }
 
-const STATIC_COMPETITORS: LeaderboardUser[] = [
-  { name: 'Akshdeep', xp: 2450 },
-  { name: 'Nikita', xp: 2210 },
-  { name: 'Sambhav', xp: 1800 },
-  { name: 'Sanjay', xp: 1420 },
-  { name: 'Aarohi', xp: 1200 },
-  { name: 'Kashish', xp: 950 },
-  { name: 'Dhananjai', xp: 700 },
-]
-
 export default function LeaderboardPage() {
   const { xp, name } = useStore()
+  const [leaderboardData, setLeaderboardData] = useState<LeaderboardUser[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const leaderboardData: LeaderboardUser[] = [
-    ...STATIC_COMPETITORS,
-    { name: name || 'You', xp: xp, isUser: true }
-  ]
-  .sort((a, b) => b.xp - a.xp)
-  .map((user, index) => ({
-    ...user,
-    rank: index + 1,
-    trend: (index % 3 === 0 ? 'up' : index % 3 === 1 ? 'neutral' : 'down') as 'up' | 'neutral' | 'down'
-  }))
+  useEffect(() => {
+    async function fetchLeaderboard() {
+      try {
+        const users = await supabaseService.getLeaderboard(20)
+
+        // Check if current user is in top 20
+        const isInTop20 = users.some(u => u.name === name)
+
+        const data = isInTop20
+          ? users.map(u => ({ name: u.name, xp: u.xp, isUser: u.name === name }))
+          : [...users, { name: name || 'You', xp: xp, isUser: true }]
+              .sort((a, b) => b.xp - a.xp)
+
+        setLeaderboardData(data.map((user, index) => ({
+          ...user,
+          rank: index + 1,
+          trend: (index % 3 === 0 ? 'up' : index % 3 === 1 ? 'neutral' : 'down') as const
+        })))
+      } catch (err) {
+        console.error('Failed to fetch leaderboard:', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchLeaderboard()
+  }, [name, xp])
+
+  if (loading) {
+    return (
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center space-y-4 mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 text-xs font-black uppercase tracking-widest">
+            <Trophy className="w-3 h-3 fill-yellow-500" />
+            Weekly Ranking
+          </div>
+          <h2 className="text-5xl font-black text-white italic">Hall of Pioneers</h2>
+        </div>
+        <div className="glass rounded-[3rem] border-white/10 p-8 space-y-4">
+          {[...Array(7)].map((_, i) => (
+            <div key={i} className="h-20 bg-white/5 rounded-2xl animate-pulse" />
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="max-w-4xl mx-auto space-y-12">

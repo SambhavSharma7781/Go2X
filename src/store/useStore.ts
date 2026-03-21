@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { supabaseService } from '@/lib/supabaseService'
 
 interface UserState {
   xp: number
@@ -32,8 +33,16 @@ export const useStore = create<UserState>()(
       setXP: (xp) => set({ xp, level: Math.floor(xp / 100) + 1 }),
       addXP: (amount) => set((state) => {
         const newXP = state.xp + amount
-        return { 
-          xp: newXP, 
+
+        // Sync to Supabase (fire-and-forget for performance)
+        if (state.name) {
+          supabaseService.updateUserXP(state.name, newXP).catch(err => {
+            console.error('Failed to sync XP to Supabase:', err)
+          })
+        }
+
+        return {
+          xp: newXP,
           level: Math.floor(newXP / 100) + 1,
           lastXPGain: Date.now()
         }

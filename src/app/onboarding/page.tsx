@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { useStore } from '@/store/useStore'
+import { supabaseService } from '@/lib/supabaseService'
 import { Sparkles, Code, Brain, Globe, Database, Cpu, ArrowRight } from 'lucide-react'
 
 const TOPICS = [
@@ -18,7 +19,9 @@ const TOPICS = [
 export default function OnboardingPage() {
   const [name, setLocalName] = useState('')
   const [selected, setSelected] = useState<string[]>([])
-  const { setTopics, setStreak, setName } = useStore()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const { setTopics, setStreak, setName, setXP } = useStore()
   const router = useRouter()
 
   const toggleTopic = (id: string) => {
@@ -27,12 +30,43 @@ export default function OnboardingPage() {
     )
   }
 
-  const handleStart = () => {
+  const handleStart = async () => {
     if (selected.length === 0 || !name.trim()) return
-    setName(name.trim())
-    setTopics(selected)
-    setStreak(1) // Start their streak!
-    router.push('/dashboard')
+
+    setLoading(true)
+    setError('')
+
+    try {
+      const trimmedName = name.trim()
+      const existingUser = await supabaseService.getUserByName(trimmedName)
+
+      if (existingUser) {
+        // Load saved data (account recovery)
+        setName(existingUser.name)
+        setXP(existingUser.xp)
+        setStreak(existingUser.streak)
+        setTopics(existingUser.topics)
+      } else {
+        // Create new user
+        await supabaseService.createUser(trimmedName, selected)
+        setName(trimmedName)
+        setTopics(selected)
+        setStreak(1)
+        setXP(0)
+      }
+
+      router.push('/dashboard')
+    } catch (err: any) {
+      console.error('Onboarding error:', err)
+      console.error('Error details:', JSON.stringify(err, null, 2))
+      if (err.code === '23505') {
+        setError('This name is already taken. Please try another name.')
+      } else {
+        setError('Something went wrong. Please try again.')
+      }
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -114,18 +148,27 @@ export default function OnboardingPage() {
         </div>
 
         <div className="flex justify-center pt-8">
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="absolute top-4 px-6 py-3 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-sm font-bold"
+            >
+              {error}
+            </motion.div>
+          )}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleStart}
-            disabled={selected.length === 0 || !name.trim()}
+            disabled={selected.length === 0 || !name.trim() || loading}
             className={`px-12 py-5 rounded-full font-black text-xl transition-all flex items-center gap-3 ${
-              selected.length > 0 && name.trim()
-                ? 'bg-primary text-white glow shadow-2xl shadow-primary/40' 
+              selected.length > 0 && name.trim() && !loading
+                ? 'bg-primary text-white glow shadow-2xl shadow-primary/40'
                 : 'bg-white/5 text-muted-foreground cursor-not-allowed border border-white/5'
             }`}
           >
-            Launch My Path
+            {loading ? 'Launching...' : 'Launch My Path'}
             <ArrowRight className="w-6 h-6" />
           </motion.button>
         </div>

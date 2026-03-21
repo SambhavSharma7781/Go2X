@@ -33,7 +33,7 @@ export function Navbar() {
           )}
         </button>
         
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center border border-white/20">
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center border border-white/20 glow">
           <User className="text-white w-5 h-5" />
         </div>
       </div>

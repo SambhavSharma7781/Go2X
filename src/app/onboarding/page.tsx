@@ -8,12 +8,48 @@ import { supabaseService } from '@/lib/supabaseService'
 import { Sparkles, Code, Brain, Globe, Database, Cpu, ArrowRight } from 'lucide-react'
 
 const TOPICS = [
-  { id: 'web-dev', label: 'Web Development', icon: Globe, color: 'bg-blue-500' },
-  { id: 'ai', label: 'Artificial Intelligence', icon: Brain, color: 'bg-purple-500' },
-  { id: 'dsa', label: 'Data Structures', icon: Database, color: 'bg-emerald-500' },
-  { id: 'backend', label: 'Backend Systems', icon: Cpu, color: 'bg-orange-500' },
-  { id: 'react', label: 'React & Next.js', icon: Code, color: 'bg-cyan-500' },
-  { id: 'ux', label: 'User Experience', icon: Sparkles, color: 'bg-pink-500' },
+  {
+    id: 'web-dev',
+    label: 'Web Development',
+    icon: Globe,
+    color: 'bg-primary/80',
+    shadow: 'shadow-orange-600/30'
+  },
+  {
+    id: 'ai',
+    label: 'Artificial Intelligence',
+    icon: Brain,
+    color: 'bg-primary/70',
+    shadow: 'shadow-orange-500/30'
+  },
+  {
+    id: 'dsa',
+    label: 'Data Structures',
+    icon: Database,
+    color: 'bg-primary/60',
+    shadow: 'shadow-orange-400/30'
+  },
+  {
+    id: 'backend',
+    label: 'Backend Systems',
+    icon: Cpu,
+    color: 'bg-primary',
+    shadow: 'shadow-primary/30'
+  },
+  {
+    id: 'react',
+    label: 'React & Next.js',
+    icon: Code,
+    color: 'bg-primary/50',
+    shadow: 'shadow-orange-300/30'
+  },
+  {
+    id: 'ux',
+    label: 'User Experience',
+    icon: Sparkles,
+    color: 'bg-primary/40',
+    shadow: 'shadow-orange-200/30'
+  },
 ]
 
 export default function OnboardingPage() {
@@ -125,10 +161,10 @@ export default function OnboardingPage() {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.4 + (i * 0.05) }}
                 onClick={() => toggleTopic(topic.id)}
-                className={`group relative p-8 rounded-[2.5rem] border-2 transition-all duration-300 text-left overflow-hidden ${
-                  isSelected 
-                    ? 'border-primary bg-primary/10 shadow-2xl shadow-primary/20 translate-y-[-4px]' 
-                    : 'border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/10 hover:translate-y-[-2px]'
+                className={`group relative p-8 rounded-[2.5rem] border-2 transition-all duration-300 text-left overflow-hidden hover-lift ${
+                  isSelected
+                    ? 'border-primary bg-primary/10 shadow-2xl shadow-primary/20 translate-y-[-4px] glow-subtle'
+                    : 'border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/10'
                 }`}
               >
                 {isSelected && (
@@ -137,7 +173,7 @@ export default function OnboardingPage() {
                     className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent pointer-events-none" 
                   />
                 )}
-                <div className={`w-14 h-14 rounded-2xl ${topic.color} flex items-center justify-center mb-6 shadow-lg shadow-${topic.color.split('-')[1]}-500/20 group-hover:scale-110 transition-transform`}>
+                <div className={`w-14 h-14 rounded-2xl ${topic.color} flex items-center justify-center mb-6 ${topic.shadow} group-hover:scale-110 transition-transform`}>
                   <Icon className="text-white w-8 h-8" />
                 </div>
                 <h3 className="text-lg font-extrabold text-white leading-tight">{topic.label}</h3 >

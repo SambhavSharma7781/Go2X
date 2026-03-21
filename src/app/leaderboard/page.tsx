@@ -35,7 +35,7 @@ export default function LeaderboardPage() {
         setLeaderboardData(data.map((user, index) => ({
           ...user,
           rank: index + 1,
-          trend: (index % 3 === 0 ? 'up' : index % 3 === 1 ? 'neutral' : 'down') as const
+          trend: (index % 3 === 0 ? 'up' : index % 3 === 1 ? 'neutral' : 'down')
         })))
       } catch (err) {
         console.error('Failed to fetch leaderboard:', err)

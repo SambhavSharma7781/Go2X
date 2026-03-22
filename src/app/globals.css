@@ -6,25 +6,25 @@
 }
 
 :root {
-  --background: #09090b;
-  --foreground: #fafafa;
-  --card: #09090b;
-  --card-foreground: #fafafa;
-  --popover: #09090b;
-  --popover-foreground: #fafafa;
-  --primary: #3b82f6;
-  --primary-foreground: #f8fafc;
+  --background: #0b0b0b;
+  --foreground: #ffffff;
+  --card: #111111;
+  --card-foreground: #ffffff;
+  --popover: #111111;
+  --popover-foreground: #ffffff;
+  --primary: #ff7a00;
+  --primary-foreground: #ffffff;
   --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
-  --muted: #27272a;
-  --muted-foreground: #a1a1aa;
-  --accent: #27272a;
-  --accent-foreground: #fafafa;
+  --secondary-foreground: #ffffff;
+  --muted: #1f1f1f;
+  --muted-foreground: #9ca3af;
+  --accent: #ff7a00;
+  --accent-foreground: #ffffff;
   --destructive: #ef4444;
-  --destructive-foreground: #fafafa;
+  --destructive-foreground: #ffffff;
   --border: #27272a;
-  --input: #27272a;
-  --ring: #2563eb;
+  --input: #1f1f1f;
+  --ring: #ff7a00;
   --radius: 0.75rem;
 }
 
@@ -34,15 +34,10 @@ body {
   font-family: var(--font-sans);
 }
 
-.glass {
-  background: rgba(15, 15, 20, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.glow {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+/* Utility classes for new design */
+.card {
+  background-color: var(--card);
+  border-color: var(--border);
 }
 
 .animate-pulse-slow {
@@ -50,10 +45,11 @@ body {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
-    opacity: .7;
+    opacity: 0.7;
   }
 }

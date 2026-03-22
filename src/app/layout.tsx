@@ -18,6 +18,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Go2X Learn | AI-Powered Learning",
   description: "Gamified learning platform for the future.",
+  icons: {
+    icon: "/favicon-go2x.png",
+    shortcut: "/favicon-go2x.png",
+  },
 };
 
 export default function RootLayout({
@@ -34,8 +38,8 @@ export default function RootLayout({
         <Sidebar />
         <div className="flex-1 flex flex-col h-full overflow-hidden">
           <Navbar />
-          <main className="flex-1 overflow-y-auto p-8 relative">
-            <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
+          <main className="flex-1 overflow-y-auto p-8 relative bg-[#0B0B0B]">
+            <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-orange-500/3 to-transparent pointer-events-none" />
             {children}
           </main>
         </div>

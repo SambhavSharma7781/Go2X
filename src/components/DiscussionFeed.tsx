@@ -88,7 +88,7 @@ export function DiscussionFeed() {
           </div>
           Knowledge Exchange
         </motion.h3>
-        <p className="text-gray-400 font-medium pl-14">
+        <p className="text-zinc-400 font-medium pl-14">
           Real-time insights synthesized from{" "}
           <span className="text-orange-500 font-semibold">#{currentTopic}</span>{" "}
           discussions
@@ -98,9 +98,9 @@ export function DiscussionFeed() {
       <div className="relative group">
         {/* Decorative background elements */}
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-orange-500/5 rounded-full blur-[100px] pointer-events-none group-hover:bg-orange-500/10 transition-colors duration-700" />
-        <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-gray-800/10 rounded-full blur-[100px] pointer-events-none group-hover:bg-gray-800/20 transition-colors duration-700" />
+        <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-zinc-800/10 rounded-full blur-[100px] pointer-events-none group-hover:bg-zinc-800/20 transition-colors duration-700" />
 
-        <div className="bg-[#111111] rounded-2xl p-10 relative overflow-hidden border border-gray-800 shadow-lg">
+        <div className="bg-[#111111]/80 backdrop-blur-md rounded-3xl p-10 relative overflow-hidden border border-white/5 shadow-2xl">
           <div className="absolute top-6 right-10 flex items-center gap-3">
             <div className="flex gap-1">
               {[1, 2, 3].map((i) => (
@@ -133,16 +133,16 @@ export function DiscussionFeed() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="p-8 rounded-2xl bg-gray-900/40 border border-gray-800 space-y-6 animate-pulse"
+                    className="p-8 rounded-3xl bg-[#1A1A1A]/50 border border-white/5 space-y-6 animate-pulse"
                   >
                     <div className="space-y-3">
-                      <div className="h-3 bg-gray-800 rounded-full w-1/3" />
-                      <div className="h-5 bg-gray-800 rounded-xl w-full" />
-                      <div className="h-5 bg-gray-800 rounded-xl w-4/5" />
+                      <div className="h-3 bg-[#222222] rounded-full w-1/3" />
+                      <div className="h-5 bg-[#222222] rounded-xl w-full" />
+                      <div className="h-5 bg-[#222222] rounded-xl w-4/5" />
                     </div>
                     <div className="flex gap-2">
-                      <div className="h-7 bg-gray-800 rounded-full w-20" />
-                      <div className="h-7 bg-gray-800 rounded-full w-20" />
+                      <div className="h-7 bg-[#222222] rounded-full w-20" />
+                      <div className="h-7 bg-[#222222] rounded-full w-20" />
                     </div>
                   </motion.div>
                 ))
@@ -155,7 +155,7 @@ export function DiscussionFeed() {
                     <p className="text-xl font-semibold text-white">
                       Unable to Load
                     </p>
-                    <p className="text-gray-400 max-w-xs mx-auto">
+                    <p className="text-zinc-400 max-w-xs mx-auto">
                       Please check your connection and try again.
                     </p>
                   </div>
@@ -174,7 +174,7 @@ export function DiscussionFeed() {
                       delay: i * 0.1,
                     }}
                     whileHover={{ y: -5, scale: 1.02 }}
-                    className="p-8 rounded-2xl bg-gray-900/30 border border-gray-800 hover:border-orange-500/40 hover:bg-gray-900/50 transition-all duration-300 group/card flex flex-col justify-between shadow-xl overflow-hidden relative"
+                    className="p-5 md:p-8 rounded-3xl bg-[#131313]/90 backdrop-blur-sm border border-white/5 hover:border-orange-500/30 hover:bg-[#151515] transition-all duration-300 group/card flex flex-col justify-between shadow-xl hover:shadow-[0_8px_30px_rgba(249,115,22,0.1)] overflow-hidden relative"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity" />
 
@@ -183,20 +183,20 @@ export function DiscussionFeed() {
                         <span className="text-[10px] font-semibold text-orange-500 uppercase tracking-tighter px-3 py-1 rounded-lg bg-orange-500/10 border border-orange-500/20">
                           Curated
                         </span>
-                        <div className="flex items-center gap-4 text-gray-400 text-[10px] font-medium">
-                          <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-gray-800/40">
-                            <ThumbsUp className="w-3 h-3 text-orange-500" />{" "}
+                        <div className="flex items-center gap-4 text-zinc-400 text-xs font-semibold">
+                          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#1A1A1A] border border-white/5">
+                            <ThumbsUp className="w-3.5 h-3.5 text-orange-400" />{" "}
                             {post.score}
                           </div>
-                          <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-gray-800/40">
-                            <MessageCircle className="w-3 h-3 text-orange-400" />{" "}
+                          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#1A1A1A] border border-white/5">
+                            <MessageCircle className="w-3.5 h-3.5 text-orange-400" />{" "}
                             {post.answer_count}
                           </div>
                         </div>
                       </div>
 
                       <h4
-                        className="text-lg font-semibold text-white leading-snug group-hover/card: transition-colors cursor-pointer"
+                        className="text-lg md:text-xl font-bold text-zinc-100 leading-snug group-hover/card:text-orange-100 transition-colors cursor-pointer tracking-tight"
                         onClick={() => window.open(post.link, "_blank")}
                       >
                         {post.title
@@ -209,9 +209,9 @@ export function DiscussionFeed() {
                         {post.tags.slice(0, 3).map((tag) => (
                           <span
                             key={tag}
-                            className="text-[10px] font-medium text-gray-400 px-3 py-1.5 rounded-full bg-gray-800/40 border border-gray-700 flex items-center gap-1.5 hover:bg-gray-800 hover:text-white transition-colors cursor-default"
+                            className="text-[10px] font-medium text-zinc-400 px-3 py-1.5 rounded-full bg-[#1A1A1A] border border-white/5 flex items-center gap-1.5 hover:bg-[#222222] hover:text-zinc-200 transition-colors cursor-default"
                           >
-                            <Hash className="w-2.5 h-2.5 text-orange-500/60" />{" "}
+                            <Hash className="w-2.5 h-2.5 text-orange-400/60" />{" "}
                             {tag}
                           </span>
                         ))}
@@ -232,18 +232,18 @@ export function DiscussionFeed() {
             </AnimatePresence>
           </div>
 
-          <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+          <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
-                <Sparkles className="w-6 h-6 text-orange-500 animate-pulse" />
+              <div className="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.15)]">
+                <Sparkles className="w-6 h-6 text-orange-400 animate-pulse" />
               </div>
-              <p className="text-sm text-gray-400 font-medium italic max-w-sm">
+              <p className="text-sm text-zinc-400 font-medium italic max-w-sm">
                 "AI-powered curation surfaces relevant discussions aligned with
                 your learning goals."
               </p>
             </div>
 
-            <div className="flex items-center gap-4 px-6 py-3 rounded-xl bg-gray-800/40 border border-gray-700">
+            <div className="flex items-center gap-4 px-6 py-3 rounded-2xl bg-[#1A1A1A] border border-white/5 shadow-inner">
               <div className="flex -space-x-2">
                 {[1, 2, 3].map((i) => (
                   <div
@@ -258,7 +258,7 @@ export function DiscussionFeed() {
                 </span>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
-                  <span className="text-[8px] font-medium text-gray-400 uppercase">
+                  <span className="text-[8px] font-medium text-zinc-400 uppercase">
                     Online
                   </span>
                 </div>

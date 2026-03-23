@@ -42,17 +42,17 @@ export function MysteryBox() {
   };
 
   return (
-    <div className="bg-[#111111] p-10 rounded-2xl border border-gray-800 flex flex-col items-center justify-center space-y-8 relative overflow-hidden group shadow-lg">
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-transparent pointer-events-none" />
+    <div className="bg-[#111111]/80 backdrop-blur-md p-6 md:p-10 rounded-3xl border border-white/5 flex flex-col items-center justify-center space-y-8 relative overflow-hidden group shadow-2xl">
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-transparent pointer-events-none opacity-50" />
 
       <div className="text-center space-y-2 relative">
-        <h3 className="text-3xl font-semibold text-white">Daily Mystery Box</h3>
-        <p className="text-gray-400 font-medium text-lg">
+        <h3 className="text-2xl md:text-3xl font-bold text-zinc-100 tracking-tight">Daily Mystery Box</h3>
+        <p className="text-zinc-400 font-medium text-sm md:text-lg tracking-wide">
           One box per day. What's inside?
         </p>
       </div>
 
-      <div className="relative w-64 h-64 flex items-center justify-center">
+      <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center">
         <AnimatePresence mode="wait">
           {!reward ? (
             <motion.button
@@ -73,9 +73,9 @@ export function MysteryBox() {
                   ? { duration: 1.5, ease: "easeInOut" }
                   : { repeat: Infinity, duration: 3 }
               }
-              className={`p-10 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-2xl shadow-orange-500/40 relative z-10 ${isOpen ? "" : "hover:scale-105 transition-transform hover:shadow-orange-500/60"}`}
+              className={`p-10 rounded-3xl bg-gradient-to-br from-orange-400 to-rose-600 flex items-center justify-center shadow-[0_0_40px_rgba(249,115,22,0.4)] relative z-10 border border-white/20 ${isOpen ? "" : "hover:scale-105 transition-transform hover:shadow-[0_0_60px_rgba(249,115,22,0.6)]"}`}
             >
-              <Boxes className="w-24 h-24 text-white drop-shadow-2xl" />
+              <Boxes className="w-24 h-24 text-white drop-shadow-xl" />
               {isOpen && (
                 <motion.div
                   initial={{ scale: 0 }}
@@ -89,31 +89,31 @@ export function MysteryBox() {
               key="reward"
               initial={{ scale: 0, rotate: -20, opacity: 0 }}
               animate={{ scale: 1, rotate: 0, opacity: 1 }}
-              className="flex flex-col items-center gap-4 relative z-20"
+              className="flex flex-col items-center gap-5 relative z-20"
             >
-              <div className="w-32 h-32 rounded-full bg-orange-500/10 backdrop-blur-2xl border border-orange-500/30 flex items-center justify-center shadow-lg shadow-orange-500/30">
-                <reward.icon className={`w-16 h-16 ${reward.color}`} />
+              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-orange-500/10 to-rose-500/10 backdrop-blur-md border border-orange-500/30 flex items-center justify-center shadow-[0_0_30px_rgba(249,115,22,0.2)]">
+                <reward.icon className={`w-14 h-14 ${reward.color} drop-shadow-lg`} />
               </div>
-              <div className="text-center">
+              <div className="text-center space-y-1">
                 <motion.p
                   initial={{ y: 20 }}
                   animate={{ y: 0 }}
-                  className="text-2xl font-semibold text-white"
+                  className="text-3xl font-bold text-zinc-100 tracking-tight"
                 >
                   {reward.label}
                 </motion.p>
-                <p className="text-sm font-semibold text-orange-500 tracking-widest transition-all">
+                <p className="text-xs font-bold text-orange-400 tracking-widest uppercase">
                   UNLOCKED
                 </p>
               </div>
-              <Sparkles className="absolute -top-10 -right-10 w-24 h-24 text-orange-500 opacity-20 animate-pulse" />
+              <Sparkles className="absolute -top-10 -right-10 w-24 h-24 text-orange-400 opacity-30 animate-pulse" />
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
       {!isOpen && (
-        <p className="text-sm font-semibold text-orange-500 animate-pulse uppercase tracking-[0.3em]">
+        <p className="text-xs font-bold text-orange-400/80 animate-pulse uppercase tracking-widest">
           Tap to Unbox
         </p>
       )}

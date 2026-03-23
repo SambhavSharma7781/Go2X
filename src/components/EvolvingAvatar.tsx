@@ -70,7 +70,7 @@ export function EvolvingAvatar() {
     <div className="flex flex-col items-center gap-6 relative">
       <motion.div
         layout
-        className={`w-48 h-48 rounded-2xl ${containerBg} border border-gray-700 flex items-center justify-center relative overflow-hidden bg-[#111111] shadow-lg transition-colors duration-1000`}
+        className={`w-48 h-48 rounded-3xl ${containerBg} border border-white/5 flex items-center justify-center relative overflow-hidden bg-[#131313]/90 backdrop-blur-md shadow-2xl transition-colors duration-1000`}
       >
         {/* Background elements */}
         <AnimatePresence>
@@ -140,11 +140,11 @@ export function EvolvingAvatar() {
           key={stage}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-xs font-semibold text-orange-500 uppercase tracking-[0.2em]"
+          className="text-xs font-bold text-orange-400 uppercase tracking-[0.2em] drop-shadow-sm"
         >
           Level {Math.floor(xp / 100) + 1} — {stage}
         </motion.p>
-        <p className="text-sm text-gray-400 font-medium">
+        <p className="text-sm text-zinc-400 font-medium">
           {avatarState === "sick"
             ? "Needs attention! Maintain your streak."
             : "Growth in progress..."}
